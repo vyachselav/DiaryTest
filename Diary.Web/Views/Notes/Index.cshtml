@@ -1,0 +1,63 @@
+﻿@model Diary.Web.Models.Note.PageModel
+@using Diary.Web.Helpers
+
+@{
+    ViewBag.Title = "Home Page";
+    var list = Model.Notes.ToList();
+}
+
+@if (Model.From != "" && Model.To != "")
+{
+    <div class="row">
+        <div class="col-md-5">
+            <h3> 
+                Notes From @Model.From To @Model.To
+            </h3>
+        </div>
+    </div>
+}
+
+@if (!Model.Notes.Any())
+{
+    <div class="row text-center">
+        <div class="col-md-4 col-md-offset-4 ">
+            <h2>
+                Create @Html.ActionLink("New Note", "NewNote")
+            </h2>
+        </div>
+    </div>
+}
+
+@for (int i = 0; i < list.Count; i++)
+{
+    if (i % 2 == 0)
+    {
+        @Html.Raw("<div class='row note-row'><div class='col-md-5'>")
+    }
+    else
+    {
+        @Html.Raw("<div class='col-md-5 col-md-offset-1'>")
+    }
+    <div class="thumbnail note-block">
+        <div class="caption">
+            <h3>
+                @Html.ActionLink(list[i].Title, "Note", "Notes", new { noteId = list[i].Id }, new { @class = "link-inner" })
+            </h3>
+            <p class="creation-date">@list[i].CreationTime</p>
+            <p>@list[i].Text</p>
+        </div>
+    </div>
+    @Html.Raw("</div>")
+
+    if ((i % 2 == 1) || (i == list.Count - 1))
+    {
+        @Html.Raw("</div>")
+    }
+}
+<div class="row note-row">
+    <div class="col-md-11 text-center">
+        <div class="btn-group">
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { from = Model.From, to = Model.To, page = x }))
+        </div>
+    </div>
+</div>
