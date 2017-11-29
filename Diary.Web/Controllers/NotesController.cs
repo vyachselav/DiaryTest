@@ -26,10 +26,10 @@ namespace Diary.Web.Controllers
             int pageSize = 6;
             int totalItems = 0;
             IEnumerable<NoteDTO> notesDto = NoteService.GetNotesInRange(userId, from, to, page, pageSize, out totalItems);
-            
+
             IEnumerable<NotePreviewModel> notesPerPage = mapper.Map<IEnumerable<NoteDTO>,
                 IEnumerable<NotePreviewModel>>(notesDto);
-            
+
             PageInfo pageInfo = new PageInfo
             {
                 PageNumber = page,
@@ -57,6 +57,7 @@ namespace Diary.Web.Controllers
             }
 
             NoteModel noteModel = mapper.Map<NoteDTO, NoteModel>(noteDto);
+            noteModel.PathToPicture = Request.Url.GetLeftPart(UriPartial.Authority) + "/Pictures/Index?id=" + noteId.ToString();
             return View(noteModel);
         }
 

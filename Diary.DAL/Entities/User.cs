@@ -12,7 +12,7 @@ namespace Diary.DAL.Entities
         public string Name { get; set; }
         [Required]
         public DateTime JoinDate { get; set; }
-        public virtual ICollection<Note> Notes { get; set; }
+        public  IEnumerable<Note> Notes { get; set; }
 
         public User()
         {

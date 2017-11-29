@@ -11,7 +11,7 @@ namespace Diary.DAL.Entities
         public string Name { get; set; }
         public string MIME { get; set; }
         public byte[] Image { get; set; }
-        public virtual Note Note { get; set; }
+        public Note Note { get; set; }
 
     }
 }

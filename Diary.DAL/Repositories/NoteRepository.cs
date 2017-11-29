@@ -39,13 +39,13 @@ namespace Diary.DAL.Repositories
 
         public IEnumerable<Note> Find(Func<Note, Boolean> predicate)
         {
-            return db.Notes.Where(predicate).ToList();
+            return db.Notes.Include(u => u.Picture).Where(predicate).ToList();
         }
         
         public IEnumerable<Note> GetPageInDateRange(string userId, int pageSize, int page, out int totalItems)
         {
             IEnumerable<Note> notes = db.Notes.Where(u => u.UserId == userId)
-                .OrderByDescending(n => n.CreationTime).ToList();
+                .Include(u => u.Picture).OrderByDescending(n => n.CreationTime).ToList();
 
             totalItems = notes.Count();
             notes = notes.Skip((page - 1) * pageSize).Take(pageSize);
@@ -56,7 +56,7 @@ namespace Diary.DAL.Repositories
         {
             IEnumerable<Note> notes = db.Notes.Where(u=>u.UserId==userId)
                 .Where(n => n.CreationTime >= fromDate && n.CreationTime <= toDate)
-                .OrderByDescending(n => n.CreationTime).ToList();
+                .Include(u => u.Picture).OrderByDescending(n => n.CreationTime).ToList();
 
             totalItems = notes.Count();
             notes = notes.Skip((page - 1) * pageSize).Take(pageSize);

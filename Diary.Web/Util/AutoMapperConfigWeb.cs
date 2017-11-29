@@ -16,14 +16,16 @@ namespace Diary.Web.Util
             cfg.CreateMap<NoteDTO, NotePreviewModel>()
                 .ForMember(dest => dest.Text,
                     opts => opts.MapFrom(src => src.Text.Length < 100
-                    ? src.Text : src.Text.Substring(0, 100) + "..."));
-            
+                        ? src.Text : src.Text.Substring(0, 100) + "..."));
+
             cfg.CreateMap<NoteCreateModel, NoteDTO>();
             cfg.CreateMap<PictureDTO, PictureModel>();
             cfg.CreateMap<NoteDTO, NoteModel>().ReverseMap();
 
             cfg.CreateMap<NoteDTO, NoteApiModel>();
-            cfg.CreateMap<PictureDTO, PictureApiModel>();
+            cfg.CreateMap<PictureDTO, PictureApiModel>()
+                .ForMember(dest => dest.PathToPicture,
+                    opts => opts.MapFrom(src => "/Pictures/Index?id=" + src.Id));
 
         });
     }
