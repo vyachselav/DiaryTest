@@ -36,13 +36,15 @@ namespace Diary.Web.Controllers
         public IHttpActionResult Get(int id)
         {
             NoteDTO noteDto = NoteService.GetNote(id, userId);
+            noteDto.Picture = NoteService.GetPicture(id);
+
             NoteApiModel noteModel = mapper.Map<NoteDTO, NoteApiModel>(noteDto);
 
-            if (noteModel.Picture != null)
-            {
-                noteModel.Picture.PathToPicture = Url.Route("Default", new { controller = "Pictures", action = "Index", id = noteModel.Id });
-            }
-            
+            //if (noteModel.Picture != null)
+            //{
+            //    noteModel.Picture.PathToPicture = Url.Route("Default", new { controller = "Pictures", action = "Index", id = noteModel.Id });
+            //}
+
             return Json(noteModel);
         }
     }

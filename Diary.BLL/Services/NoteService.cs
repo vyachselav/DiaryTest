@@ -32,7 +32,6 @@ namespace Diary.BLL.Services
             User user = await Database.UserManager.FindByEmailAsync(userDto.Email);
             if (user == null)
             {
-
                 user = new User
                 {
                     Email = userDto.Email,
@@ -78,7 +77,6 @@ namespace Diary.BLL.Services
         public NoteDTO GetNote(int id, string userId)
         {
             Note note = Database.Notes.Find(n => n.Id == id).FirstOrDefault(n => n.UserId == userId);
-            //Database.UserManager.FindById(userId).Notes.FirstOrDefault(n => n.Id == id);
             NoteDTO noteDto;
             if (note != null)
             {
@@ -86,6 +84,7 @@ namespace Diary.BLL.Services
 
                 noteDto = mapper.Map<Note, NoteDTO>(note);
                 noteDto.Deletable = deletable;
+                noteDto.WithPicture = Database.Pictures.Get(id) != null;
             }
             else
             {

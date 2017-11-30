@@ -18,6 +18,18 @@ namespace Diary.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Notes", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Pictures",
+                url: "Pictures/{action}/{id}",
+                defaults: new {action = "Index"}
+            );
+
+            routes.MapRoute(
+                name: "Account",
+                url: "Account/{action}",
+                defaults: new { action = "Login"}
+            );
         }
     }
 }

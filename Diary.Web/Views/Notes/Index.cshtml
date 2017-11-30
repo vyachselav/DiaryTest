@@ -8,11 +8,13 @@
 
 @if (Model.From != "" && Model.To != "")
 {
-    <div class="row">
-        <div class="col-md-5">
-            <h3> 
-                Notes From @Model.From To @Model.To
-            </h3>
+    <div class="row note-row">
+        <div class="col-md-11 text-center">
+            <h4>
+                From: @Model.From.Replace('-', '.') <br />
+                <br />
+                To: @Model.To.Replace('-', '.')
+            </h4>
         </div>
     </div>
 }
@@ -44,7 +46,7 @@
                 @Html.ActionLink(list[i].Title, "Note", "Notes", new { noteId = list[i].Id }, new { @class = "link-inner" })
             </h3>
             <p class="creation-date">@list[i].CreationTime</p>
-            <p>@list[i].Text</p>
+            <p class="note-text">@list[i].Text</p>
         </div>
     </div>
     @Html.Raw("</div>")

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using AutoMapper;
 using Diary.BLL.DTO;
 using Diary.Web.Models.Note;
+using Newtonsoft.Json;
 
 namespace Diary.Web.Controllers
 {
@@ -18,11 +19,34 @@ namespace Diary.Web.Controllers
         private IMapper mapper = AutoMapperConfigWeb.mvcConfig.CreateMapper();
         private NoteService NoteService => HttpContext.GetOwinContext().GetUserManager<NoteService>();
 
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id)
         {
-            PictureDTO picDto = NoteService.GetPicture(id);
-            PictureModel pic = mapper.Map<PictureDTO, PictureModel>(picDto);
-            return View(pic);
+            if (id.HasValue)
+            {
+                PictureDTO picDto = NoteService.GetPicture(id.Value);
+                if (picDto != null)
+                {
+                    PictureModel pic = mapper.Map<PictureDTO, PictureModel>(picDto);
+                    return View(pic);
+                }
+                return HttpNotFound("There is not such pic. Sorry.");
+            }
+            return RedirectToAction("Index", "Notes");
+
+        }
+
+        public string GetPic(int? id)
+        {
+            if (id.HasValue)
+            {
+                PictureDTO picDto = NoteService.GetPicture(id.Value);
+                if (picDto != null)
+                {
+                    PictureModel pic = mapper.Map<PictureDTO, PictureModel>(picDto);
+                    return JsonConvert.SerializeObject(pic);
+                }
+            }
+            return null;
         }
     }
 }

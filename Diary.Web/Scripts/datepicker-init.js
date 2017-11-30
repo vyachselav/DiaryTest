@@ -13,14 +13,7 @@
 
     $('#btn-filter').click(function () {
         var fromVal = "?from=" + $("#from").val();
-
         var toVal = "&to=" + $("#to").val();
-
-        //this.href = "Home/Index/"+fromVal+toVal;
         this.href = "/" + fromVal + toVal;
-
-
-        //var url = this.attr('href');
-        // this.attr('href', url + fromVal + toVal);
     });
 });

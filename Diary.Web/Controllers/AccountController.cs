@@ -93,6 +93,11 @@ namespace Diary.Web.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
+                else
+                {
+                    ViewBag.EmailTaken = "Email address already in use.";
+                    return View();
+                }
             }
             return View(model);
         }

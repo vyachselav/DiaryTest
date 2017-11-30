@@ -23,10 +23,10 @@ namespace Diary.Web.Util
             cfg.CreateMap<NoteDTO, NoteModel>().ReverseMap();
 
             cfg.CreateMap<NoteDTO, NoteApiModel>();
+
             cfg.CreateMap<PictureDTO, PictureApiModel>()
                 .ForMember(dest => dest.PathToPicture,
                     opts => opts.MapFrom(src => "/Pictures/Index?id=" + src.Id));
-
         });
     }
 }

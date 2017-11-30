@@ -10,6 +10,7 @@ namespace Diary.BLL.DTO
         public bool Deletable { get; set; }
         public DateTime CreationTime { get; set; }
         public PictureDTO Picture { get; set; }
+        public bool WithPicture { get; set; }
         public string UserId { get; set; }
     }
 }

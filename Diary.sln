@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diary.DAL", "Diary.DAL\Diar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diary.BLL", "Diary.BLL\Diary.BLL.csproj", "{71F86462-3A3A-49F8-BB7F-53816D28EE27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiCheck", "ApiCheck\ApiCheck.csproj", "{22A1505D-6193-41DB-91EC-ADB49DB84EE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{71F86462-3A3A-49F8-BB7F-53816D28EE27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F86462-3A3A-49F8-BB7F-53816D28EE27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71F86462-3A3A-49F8-BB7F-53816D28EE27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22A1505D-6193-41DB-91EC-ADB49DB84EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22A1505D-6193-41DB-91EC-ADB49DB84EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22A1505D-6193-41DB-91EC-ADB49DB84EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22A1505D-6193-41DB-91EC-ADB49DB84EE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

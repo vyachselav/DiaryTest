@@ -44,7 +44,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a>Logged in as @User.Identity.Name</a></li>
+                    <li><a id="user-name">Logged in as @User.Identity.Name</a></li>
                     
                     <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
                 </ul>
@@ -58,7 +58,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/datepicker")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/personal")
     @RenderSection("scripts", required: false)
 </body>
 </html>

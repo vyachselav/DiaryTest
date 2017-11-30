@@ -19,12 +19,15 @@ namespace Diary.DAL.Repositories
         public IEnumerable<Note> GetAllByUser(string userId)
         {
             return db.Notes.Where(n=>n.UserId == userId)
-                .Include(n => n.Picture).OrderByDescending(n => n.CreationTime);
+                .Include(n => n.Picture)
+                .OrderByDescending(n => n.CreationTime);
         }
 
         public Note Get(int id)
         {
-            return db.Notes.Include(n => n.Picture).FirstOrDefault(n => n.Id == id);
+            return db.Notes
+                //.Include(n => n.Picture)
+                .FirstOrDefault(n => n.Id == id);
         }
 
         public void Create(Note note)
@@ -39,13 +42,16 @@ namespace Diary.DAL.Repositories
 
         public IEnumerable<Note> Find(Func<Note, Boolean> predicate)
         {
-            return db.Notes.Include(u => u.Picture).Where(predicate).ToList();
+            return db.Notes
+               // .Include(u => u.Picture)
+                .Where(predicate).ToList();
         }
         
         public IEnumerable<Note> GetPageInDateRange(string userId, int pageSize, int page, out int totalItems)
         {
             IEnumerable<Note> notes = db.Notes.Where(u => u.UserId == userId)
-                .Include(u => u.Picture).OrderByDescending(n => n.CreationTime).ToList();
+               // .Include(u => u.Picture)
+                .OrderByDescending(n => n.CreationTime).ToList();
 
             totalItems = notes.Count();
             notes = notes.Skip((page - 1) * pageSize).Take(pageSize);
@@ -56,7 +62,8 @@ namespace Diary.DAL.Repositories
         {
             IEnumerable<Note> notes = db.Notes.Where(u=>u.UserId==userId)
                 .Where(n => n.CreationTime >= fromDate && n.CreationTime <= toDate)
-                .Include(u => u.Picture).OrderByDescending(n => n.CreationTime).ToList();
+                //.Include(u => u.Picture)
+                .OrderByDescending(n => n.CreationTime).ToList();
 
             totalItems = notes.Count();
             notes = notes.Skip((page - 1) * pageSize).Take(pageSize);
