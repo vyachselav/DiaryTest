@@ -11,12 +11,14 @@ using Diary.BLL.DTO;
 using Diary.Web.Models.Account;
 using Diary.Web.Util;
 using AutoMapper;
+using Microsoft.Ajax.Utilities;
 
 namespace Diary.Web.Controllers
 {
     public class AccountController : Controller
     {
         private IMapper mapper = AutoMapperConfigWeb.mvcConfig.CreateMapper();
+        private string userId => User.Identity.GetUserId();
         private NoteService NoteService
         {
             get
@@ -34,6 +36,11 @@ namespace Diary.Web.Controllers
 
         public ActionResult Login()
         {
+            if (!userId.IsNullOrWhiteSpace())
+            {
+                return RedirectToAction("Index", "Notes");
+            }
+
             return View();
         }
 
@@ -75,6 +82,11 @@ namespace Diary.Web.Controllers
 
         public ActionResult Register()
         {
+            if (!userId.IsNullOrWhiteSpace())
+            {
+                return RedirectToAction("Index", "Notes");
+            }
+
             return View();
         }
 

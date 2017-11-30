@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 
 namespace Diary.Web.Controllers
 {
+    [Authorize]
     public class PicturesController : Controller
     {
         private IMapper mapper = AutoMapperConfigWeb.mvcConfig.CreateMapper();

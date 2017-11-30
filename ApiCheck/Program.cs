@@ -28,54 +28,57 @@ namespace ApiCheck
 
     class Program
     {
-
         static string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"host.txt");
         static string port = File.ReadAllText(path);
 
-        private static string APP_PATH = "http://localhost:" + port;//"55812"
+        private static string APP_PATH = "http://localhost:" + port;
         private static string token;
 
         static void Main(string[] args)
         {
-            //Console.WriteLine(APP_PATH);
-
-            Console.WriteLine("Login(hit Enter if john@mail.com): ");
-            string inputVal = Console.ReadLine();
-
-            string userName = String.IsNullOrEmpty(inputVal) ? "john@mail.com" : inputVal;
-
-            Console.WriteLine("Password(hit Enter if pas123): ");
-            inputVal = Console.ReadLine();
-
-            string password = String.IsNullOrEmpty(inputVal) ? "pas123" : inputVal;
-
-            Dictionary<string, string> tokenDictionary = GetTokenDictionary(userName, password);
-            token = tokenDictionary["access_token"];
-
-            string values = GetValues(token);
-            Note[] notes = JsonConvert.DeserializeObject<Note[]>(values);
-
-            foreach (Note note in notes)
+            string key;
+            do
             {
-                Console.WriteLine("Notes:\n");
-                Console.WriteLine("Note id: {0}\n", note.Id);
-                Console.WriteLine("Creation time: {0}\n", note.CreationTime);
-                Console.WriteLine("Title: {0}\n", note.Title);
-                Console.WriteLine("Text: {0}\n", note.Text);
-                Console.WriteLine("Picture :\n");
-                if (note.Picture != null)
+                Console.WriteLine("Login(hit Enter if john@mail.com): ");
+                string inputVal = Console.ReadLine();
+
+                string userName = String.IsNullOrEmpty(inputVal) ? "john@mail.com" : inputVal;
+
+                Console.WriteLine("Password(hit Enter if pas123): ");
+                inputVal = Console.ReadLine();
+
+                string password = String.IsNullOrEmpty(inputVal) ? "pas123" : inputVal;
+
+                Dictionary<string, string> tokenDictionary = GetTokenDictionary(userName, password);
+                token = tokenDictionary["access_token"];
+
+                string values = GetValues(token);
+                Note[] notes = JsonConvert.DeserializeObject<Note[]>(values);
+
+                foreach (Note note in notes)
                 {
-                    Console.WriteLine("\t\tName: {0}\n", note.Picture.Name);
-                    Console.WriteLine("\t\tMIME: {0}\n", note.Picture.MIME);
-                    Console.WriteLine("\t\tPath to picture: {0}\n", "http://localhost:55812/" + note.Picture.PathToPicture);
+                    Console.WriteLine("Notes:\n");
+                    Console.WriteLine("Note id: {0}\n", note.Id);
+                    Console.WriteLine("Creation time: {0}\n", note.CreationTime);
+                    Console.WriteLine("Title: {0}\n", note.Title);
+                    Console.WriteLine("Text: {0}\n", note.Text);
+                    Console.WriteLine("Picture :\n");
+                    if (note.Picture != null)
+                    {
+                        Console.WriteLine("\t\tName: {0}\n", note.Picture.Name);
+                        Console.WriteLine("\t\tMIME: {0}\n", note.Picture.MIME);
+                        Console.WriteLine("\t\tPath to picture: {0}\n", APP_PATH + note.Picture.PathToPicture);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\t\tnull\n");
+                    }
+                    Console.WriteLine(new String('–', 100));
                 }
-                else
-                {
-                    Console.WriteLine("\t\tnull\n");
-                }
-                Console.WriteLine(new String('/', 20));
+                Console.WriteLine("type 'x' for repeat");
+                key = Console.ReadLine();
             }
-            Console.Read();
+            while (key == "x");
         }
 
         static Dictionary<string, string> GetTokenDictionary(string userName, string password)
